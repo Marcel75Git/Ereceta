@@ -13,4 +13,9 @@ import java.math.BigDecimal;
  */
 public class ProductSaleLine {
     private BigDecimal subTotal;
+
+    public ProductSaleLine(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
+    
 }
