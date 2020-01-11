@@ -8,6 +8,9 @@ package ereceta;
 import Data.HealthCardID;
 import Data.ProductID;
 import Excepciones.DispensingNotAvailableException;
+import Excepciones.HealthCardException;
+import Excepciones.PatientIDException;
+import Excepciones.ProductIDException;
 import Excepciones.SaleClosedException;
 import Pharmacy.Dispensing;
 import Pharmacy.MedicalPrescription;
@@ -111,9 +114,21 @@ public class Ereceta {
      */
    
        DispensingTerminal dispensingTerminal = new DispensingTerminal();
-       dispensingTerminal.getePrescription('d');
-       dispensingTerminal.initNewSale();
-       dispensingTerminal.enterProduct(new ProductID(""));
+        try {
+            dispensingTerminal.getePrescription('d');
+        } catch (HealthCardException | PatientIDException  ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            dispensingTerminal.initNewSale();
+        } catch (DispensingNotAvailableException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            dispensingTerminal.enterProduct(new ProductID(""));
+        } catch (ProductIDException ex) {
+            System.out.println(ex.getMessage());
+        }
         
        
       
