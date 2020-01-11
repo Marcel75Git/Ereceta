@@ -10,7 +10,7 @@ package Excepciones;
  * @author mfoulouyvesmarcel
  */
 public class ProductIDException extends Exception {
-    public ProductIDException(){
-        super();
+    public ProductIDException(String message){
+        super(message);
     }
 }
