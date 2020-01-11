@@ -10,7 +10,7 @@ package Excepciones;
  * @author mfoulouyvesmarcel
  */
 public class HealthCardException extends Exception{
-    public HealthCardException(){
-        super();
+    public HealthCardException(String message){
+        super(message);
     }
 }
