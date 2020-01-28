@@ -10,7 +10,7 @@ package Excepciones;
  * @author mfoulouyvesmarcel
  */
 public class NotValidePrescriptionException extends Exception{
-    public NotValidePrescriptionException(){
-        super();
+    public NotValidePrescriptionException(String message){
+        super(message);
     }
 }
