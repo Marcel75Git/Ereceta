@@ -12,7 +12,23 @@ package Data;
 public class ProductID {
     
    private final String productId;
+   private String descipcion;
    public ProductID(String code) { this. productId = code; } 
+
+    public ProductID(String productId, String descipcion) {
+        this.productId = productId;
+        this.descipcion = descipcion;
+    }
+
+    public String getDescipcion() {
+        return descipcion;
+    }
+
+    public void setDescipcion(String descipcion) {
+        this.descipcion = descipcion;
+    }
+   
+   
    
    public String getProductId() { return productId; }
 
