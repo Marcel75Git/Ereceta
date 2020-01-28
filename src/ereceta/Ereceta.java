@@ -7,11 +7,14 @@ package ereceta;
 
 import Data.HealthCardID;
 import Data.ProductID;
+import Excepciones.ConnectException;
 import Excepciones.DispensingNotAvailableException;
 import Excepciones.HealthCardException;
+import Excepciones.NotValidePrescriptionException;
 import Excepciones.PatientIDException;
 import Excepciones.ProductIDException;
 import Excepciones.SaleClosedException;
+import Excepciones.SaleNotInitiatedException;
 import Pharmacy.Dispensing;
 import Pharmacy.MedicalPrescription;
 import Pharmacy.Sale;
@@ -38,6 +41,8 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Hashtable;
 import Pharmacy.DispensingTerminal;
+import Services.SNS;
+import java.util.Map;
 
 /**
  *
@@ -51,8 +56,6 @@ public class Ereceta {
     
     
     public static void main(String[] args){
-      
-       
         
         /*Sale mySale = new Sale(true);
         mySale.addLine(null, BigDecimal.ONE, null);
@@ -113,7 +116,9 @@ public class Ereceta {
        
      */
    
-       DispensingTerminal dispensingTerminal = new DispensingTerminal();
+       /* DispensingTerminal dispensingTerminal = new DispensingTerminal();
+        SNS services = new SNS();
+        dispensingTerminal.setSns(services);
         try {
             dispensingTerminal.getePrescription('d');
         } catch (HealthCardException | PatientIDException  ex) {
@@ -128,13 +133,42 @@ public class Ereceta {
             dispensingTerminal.enterProduct(new ProductID(""));
         } catch (ProductIDException ex) {
             System.out.println(ex.getMessage());
+        }*/
+        
+ 
+           DispensingTerminal dispensingTerminal = new DispensingTerminal();
+        try { 
+            dispensingTerminal.getePrescription('s');
+            dispensingTerminal.initNewSale();
+              System.out.println("cuantos productos quieres entrar");
+              Scanner scanner = new Scanner(System.in);
+              int a = scanner.nextInt();
+               for (int i = 0; i < a; i++) {
+                   System.out.println("entroduce el producto id");
+                    Scanner scan = new Scanner(System.in);
+                    String producto = scan.nextLine();
+                    dispensingTerminal.enterProduct(new ProductID(producto));
+               }
+            dispensingTerminal.finalizeSale();
+        } catch (HealthCardException ex) {
+            System.err.println(ex.getMessage());
+        } catch (PatientIDException ex) {
+          System.err.println(ex.getMessage());
+        } catch (NotValidePrescriptionException ex) {
+           System.err.println(ex.getMessage());
+        } catch (ConnectException ex) {
+            Logger.getLogger(Ereceta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
-      
-        
-        
-     
+       catch (DispensingNotAvailableException ex) {
+            System.err.println(ex.getMessage());
+        }
+        catch (ProductIDException ex) {
+            System.err.println(ex.getMessage());
+        }catch (SaleNotInitiatedException | SaleClosedException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
     
+
+ 
 }
