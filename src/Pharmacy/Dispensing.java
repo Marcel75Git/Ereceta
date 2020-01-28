@@ -18,13 +18,18 @@ import java.util.Scanner;
  * @author mfoulouyvesmarcel
  */
 public class Dispensing {
+    
     private byte nOrder;
     private LocalDate initDate, finalDate; 
     private boolean isCompleted;
-    private String nom;
+    String nom;
+    private ePresciption patientEprescripcion;
     
     private List<ProductID> listProduct = new ArrayList<ProductID>();
     ProductID productID = new ProductID("");
+    
+    List<MedicingDispencingLine> listMedicine = new ArrayList<>();
+    
     
     public Dispensing() {} 
 
@@ -33,15 +38,22 @@ public class Dispensing {
         this.initDate = initDate;
         this.finalDate = finalDate;
         this.isCompleted = isCompleted;
+        this.patientEprescripcion = new ePresciption(false);
     }
+    
+    
 
     public Dispensing(String nom) {
         this.nom = nom;
     }
     
+    public void añadirMedecineLine(MedicingDispencingLine medeDispencingLine){
+         listMedicine.add(medeDispencingLine);
+    }
+    
      @Override
         public String toString() {
-        return "Dispensing{" + "Dispensing name='" + nom + '\'' + '}';
+        return "Dispensing{" + "Dispensing nOrder='" + nOrder + '\'' + '}';
         } 
 
     public byte getnOrder() {
@@ -91,6 +103,14 @@ public class Dispensing {
     public void setProductID(ProductID productID) {
         this.productID = productID;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
     
     
 
@@ -138,11 +158,12 @@ public class Dispensing {
         return a;
     }
     public void setProductAsDispensed(ProductID prodID) {
-      //prodID = new ProductID("Aspirine32");
-      if(prodID.equals(this)){
-          System.out.println("ha sido dispensado"); 
-          MedicingDispencingLine medicingDispencingLine = new MedicingDispencingLine(true);
-      }
+        String idProducto = prodID.getProductId();
+          for (MedicingDispencingLine listMedicine :listMedicine) {
+             if(idProducto.equals(listMedicine.getProductSpecification().getUPCode())) {
+                   listMedicine.setAcquired(true);
+             }
+          }
     }
     public void setCompleted() { System.out.println("todos los medicamentos dispensados");  }
     public void dateActuelle (){

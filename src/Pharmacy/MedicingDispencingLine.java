@@ -11,9 +11,19 @@ package Pharmacy;
  */
 public class MedicingDispencingLine {
     private boolean acquired;
-
-    public MedicingDispencingLine(boolean acquired) {
+    private ProductSpecification productSpecification;
+    
+    public MedicingDispencingLine(boolean acquired, ProductSpecification productSpecification) {
         this.acquired = acquired;
+        this.productSpecification= productSpecification;
+    }
+
+    public ProductSpecification getProductSpecification() {
+        return productSpecification;
+    }
+
+    public void setProductSpecification(ProductSpecification productSpecification) {
+        this.productSpecification = productSpecification;
     }
 
     public boolean isAcquired() {

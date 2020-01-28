@@ -16,12 +16,23 @@ public class ProductSpecification {
     private String Descripcion;
     private BigDecimal price;
 
+    public ProductSpecification() {
+    }
+    
+    
+
     public ProductSpecification(String UPCode, String Descripcion, BigDecimal price) {
         this.UPCode = UPCode;
         this.Descripcion = Descripcion;
         this.price = price;
     }
 
+    public ProductSpecification(String UPCode) {
+        this.UPCode = UPCode;
+    }
+
+    
+    
     public String getUPCode() {
         return UPCode;
     }
